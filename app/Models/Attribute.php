@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\AttributeTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Attribute extends Model
 {
@@ -18,4 +19,9 @@ class Attribute extends Model
     protected $casts = [
         'type' => AttributeTypeEnum::class
     ];
+
+    public function values(): HasMany
+    {
+        return $this->hasMany(AttributeValue::class);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TimesheetController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
@@ -12,11 +13,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
 
-    Route::prefix('attributes')->group(function () {
-        Route::post('create', [AttributeController::class, 'create']);
-        Route::patch('{attribute}', [AttributeController::class, 'update']);
-    });
-
+    Route::apiResource('attributes', AttributeController::class)->except(['show', 'destroy']);
+    Route::apiResource('projects', ProjectController::class);
     Route::apiResource('timesheets', TimesheetController::class);
 });
 

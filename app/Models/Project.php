@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ProjectStatusEnum;
+use App\Queries\ProjectQuery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -15,16 +16,21 @@ class Project extends Model
 
     protected $fillable = [
         'name',
-        'project'
+        'status'
     ];
 
     protected $casts = [
         'status' => ProjectStatusEnum::class
     ];
 
+    public function newEloquentBuilder($query): ProjectQuery
+    {
+        return new ProjectQuery($query);
+    }
+
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_projects');
+        return $this->belongsToMany(User::class, 'user_project');
     }
 
     public function timesheets(): HasMany
