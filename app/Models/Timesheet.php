@@ -18,6 +18,10 @@ class Timesheet extends Model
         'hours',
     ];
 
+    protected $casts = [
+        'date' => 'date'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
