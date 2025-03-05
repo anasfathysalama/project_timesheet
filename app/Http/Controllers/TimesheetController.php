@@ -13,7 +13,7 @@ class TimesheetController extends Controller
 {
     public function index()
     {
-        $response = Timesheet::query()->with('user')->paginate(request('per_page', 10));
+        $response = Timesheet::query()->with(['user', 'project'])->paginate(request('per_page', 10));
 
         return TimeSheetResource::collection($response);
     }
@@ -31,6 +31,8 @@ class TimesheetController extends Controller
 
     public function show(Timesheet $timesheet)
     {
+        $timesheet->load(['user', 'project']);
+
         return TimeSheetResource::make($timesheet);
     }
 

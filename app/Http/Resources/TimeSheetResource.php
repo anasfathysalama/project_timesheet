@@ -19,7 +19,8 @@ class TimeSheetResource extends JsonResource
             'task_name' => $this->task_name,
             'date' => $this->date?->format('Y-m-d'),
             'hours' => $this->hours,
-            'user' => $this->whenLoaded('user', UserResource::make($this->user)),
+            'user' => $this->whenLoaded('user', fn() => UserResource::make($this->user)),
+            'project' => $this->whenLoaded('project', fn() => ProjectResource::make($this->project)),
         ];
     }
 }

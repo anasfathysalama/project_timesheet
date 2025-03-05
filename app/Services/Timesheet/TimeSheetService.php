@@ -24,7 +24,7 @@ class TimeSheetService
     {
         $this->timesheet ? $this->update() : $this->create();
 
-        return $this->timesheet->load('user');
+        return $this->timesheet->load(['user', 'project']);
     }
 
     private function update(): void
